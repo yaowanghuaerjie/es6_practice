@@ -9596,41 +9596,70 @@ module.exports = function (regExp, replace) {
 "use strict";
 
 
-/**
- * Created by yiyun on 2018/1/31.
- */
-/**
- * let和const：
- * let作用域概念
- */
-{
-    var test = function test() {
-        for (var _i = 1; _i < 3; _i++) {
-            //块作用域
-            console.log(_i);
-        }
-        console.log(i);
-        //let变量不可以重复申明
-        // let a = 1;
-        // let a = 2;
-    };
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-    test();
+/**
+ * Created by yiyun on 2018/2/6.
+ */
+//Iterator和for...of循环
+//Iterator和for...of循环
+{
+    var arr = ['hello', 'world'];
+    var map = arr[Symbol.iterator]();
+    console.log(map.next());
+    console.log(map.next());
+    console.log(map.next());
 }
-{
-    var last = function last() {
-        //const申明常量
-        var PI = 3.1415926;
-        //PI=3.215544;
-        //const数值不可以修改，对象地址指针不变，但是对象内容可以变
-        var k = {
-            a: 1
-        };
-        k.b = 3;
-        console.log(PI, k);
-    };
 
-    last();
+{
+    var obj = _defineProperty({
+        start: [1, 3, 2],
+        end: [7, 9, 8]
+    }, Symbol.iterator, function () {
+        var self = this;
+        var index = 0;
+        var arr = self.start.concat(self.end);
+        var len = arr.length;
+        return {
+            next: function next() {
+                if (index < len) {
+                    return {
+                        value: arr[index++],
+                        done: false
+                    };
+                } else {
+                    return {
+                        value: arr[index++],
+                        done: true
+                    };
+                }
+            }
+        };
+    });
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+        for (var _iterator = obj[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var key = _step.value;
+
+            console.log(key);
+        }
+    } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+    } finally {
+        try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+                _iterator.return();
+            }
+        } finally {
+            if (_didIteratorError) {
+                throw _iteratorError;
+            }
+        }
+    }
 }
 
 /***/ })
